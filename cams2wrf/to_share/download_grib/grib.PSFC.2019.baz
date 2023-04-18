@@ -1,0 +1,24 @@
+#!/usr/bin/env python
+import cdsapi
+import yaml
+
+with open('/work/users/alu/.cdsapirc', 'r') as f:
+            credentials = yaml.safe_load(f)
+
+c = cdsapi.Client(url=credentials['url'], key=credentials['key'])
+c = cdsapi.Client()
+
+
+
+c.retrieve(
+    'cams-global-reanalysis-eac4',
+    {
+        'variable': 'surface_pressure',
+        'date': '2018-luna-zi/2018-luna-zi',
+        'time': [
+            '00:00','03:00', '06:00', '09:00', '12:00',
+            '15:00','18:00', '21:00',
+        ],
+        'format': 'grib',
+    },
+    'downloadpsfc.grib')
